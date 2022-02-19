@@ -1,19 +1,19 @@
 
 
-#           ************* IVA-510- Dönem Projesi ***************
+#           ************* IVA-510- DÃ¶nem Projesi ***************
 
 
 
 
 #                   **** DOMAIN ve IS PROBLEMI BILGISI ****
 
-# Çalismamiz bir banka sektöründe gerçeklestirilecektir. Bu sebeple bir banka, elindeki verilerden yola çikarak müsterilerinin aldigi kredilerinin geri ödeme performansini ölçmek istiyor. Bu çiktiya göre temerrüte düsme ihtimalleri, hangi müsteri profillerine kredi verilmesi yada verilmemesi gerekiyor gibi sorularin cevaplanmasi istenmektedir.
+# Ã‡alismamiz bir banka sektÃ¶rÃ¼nde gerÃ§eklestirilecektir. Bu sebeple bir banka, elindeki verilerden yola Ã§ikarak mÃ¼sterilerinin aldigi kredilerinin geri Ã¶deme performansini Ã¶lÃ§mek istiyor. Bu Ã§iktiya gÃ¶re temerrÃ¼te dÃ¼sme ihtimalleri, hangi mÃ¼steri profillerine kredi verilmesi yada verilmemesi gerekiyor gibi sorularin cevaplanmasi istenmektedir.
  
 
 
-#                 *****  Veri seti hikayesi ve Çalisma Alani  *****
+#                 *****  Veri seti hikayesi ve Ã‡alisma Alani  *****
 
-# train ve test veri setlerini belirlerken ögrenci numaranizi seed olarak kullaniniz.
+# train ve test veri setlerini belirlerken Ã¶grenci numaranizi seed olarak kullaniniz.
 
 #Karar agaci, regresyon ve benzerlik(?) modellerini kullanarak model tahminlerini yapiniz. Uc  modelin de performanslarini karsilastiriniz. Bu veri setinde:
 
@@ -25,7 +25,7 @@
 
 #Is Problemi : 
 
-#Banka müsterilerinin temerrüte düsme riskini tahmin etmek istenmektedir. 
+#Banka mÃ¼sterilerinin temerrÃ¼te dÃ¼sme riskini tahmin etmek istenmektedir. 
 
 
 #Veri Seti hikayesi:
@@ -80,14 +80,14 @@ str(df)
 # 23400 obs. of  32 variables (Num - Int)
 
 --
-#Hedef degiskenimiz 0'a homojen mi heterojen mi oldugunu görüyoruz.
+#Hedef degiskenimiz 0'a homojen mi heterojen mi oldugunu gÃ¶rÃ¼yoruz.
 table(df$Y)
 
 #  0     1 
 #18240  5160 
 
 --
-#Proportion'i bakarak yüzde ne kadar homojen oldugu görebiliyoruz.
+#Proportion'i bakarak yÃ¼zde ne kadar homojen oldugu gÃ¶rebiliyoruz.
 
 prop.table(table(df$Y))
 
@@ -96,7 +96,7 @@ prop.table(table(df$Y))
 
 --
 
-# Burada Hedef degiskenin entropisini hesapladik. Entropi 0'a ne kadar yakinsa o kadar saf oldugunu görüyoruz.
+# Burada Hedef degiskenin entropisini hesapladik. Entropi 0'a ne kadar yakinsa o kadar saf oldugunu gÃ¶rÃ¼yoruz.
 df_entropy <- entropy(table(df$Y), unit="log2")
 
 # 0.7611028    0- saf / 1 - Heterojen
@@ -106,7 +106,7 @@ df_entropy <- entropy(table(df$Y), unit="log2")
 #   **********Feature Selection************
 
 
-##Ortalama degerleri de görmek istedigim için yas ve verilen kredi miktarinin ortalamasini yeni deger olarak ekliyorum.
+##Ortalama degerleri de gÃ¶rmek istedigim iÃ§in yas ve verilen kredi miktarinin ortalamasini yeni deger olarak ekliyorum.
 
 df$mean_age = as.numeric(df$X5>35)
 df$mean_credit = as.numeric(df$X1>11700)
@@ -137,12 +137,12 @@ anyNA(df1)
 
 # Train ve Test setlerinin olusturulmasi
 
-  #Her denemede ayni sonucu elde edebilmek için sabit bir seed degeri atiyoruz
+  #Her denemede ayni sonucu elde edebilmek iÃ§in sabit bir seed degeri atiyoruz
 
 
 set.seed(202167009)
 
-  # train indeks ön tanimli argümani olusturarak her seferinde ayirma islemi yapmaya gerek kalmiyor. Train ve test setleri 75'e 25 olarak ayrildi.
+  # train indeks Ã¶n tanimli argÃ¼mani olusturarak her seferinde ayirma islemi yapmaya gerek kalmiyor. Train ve test setleri 75'e 25 olarak ayrildi.
 
 train_indeks <- createDataPartition(df1$Y,
                                     p=.75, list = FALSE, times = 2 )
@@ -210,7 +210,7 @@ knn_test <- test
 #knn_train<- lapply(train[1:12], as.numeric)
 #knn_test<- lapply(test[1:12], as.numeric)
 
-#modeli 4 komsu ve 3 komsu üzerinden fiteyip çiktilarina bakiyorum. KNN'de komsu sayisi arttirkça modeli anlamini yiritdigi için Tuning modeline ihtiyaç duymadan sadece 3 ve 4.ncü komsu degerleri üzerinden kontrol sagliyorum
+#modeli 4 komsu ve 3 komsu Ã¼zerinden fiteyip Ã§iktilarina bakiyorum. KNN'de komsu sayisi arttirkÃ§a modeli anlamini yiritdigi iÃ§in Tuning modeline ihtiyaÃ§ duymadan sadece 3 ve 4.ncÃ¼ komsu degerleri Ã¼zerinden kontrol sagliyorum
 
 knn_fit4 <- knn(train = knn_train, test = knn_test, cl=train_y, k = 4)
 
@@ -232,13 +232,13 @@ summary(knn_fit3)
 knn_tb3 <- table(knn_test$Y, knn_fit3)
 acc_knn3 <- sum(diag(knn_tb)/sum(knn_tb))
 #0.7347431
-#model fit 3'ün acc'si %73 olarak belirlendi
+#model fit 3'Ã¼n acc'si %73 olarak belirlendi
 
 
 knn_tb4 <- table(knn_test$Y, knn_fit4)
 acc_knn4 <- sum(diag(knn_tb4)/sum(knn_tb4))
 #0.7697966
-#model fit 4'ün acc'si %77 olarak belirlendi
+#model fit 4'Ã¼n acc'si %77 olarak belirlendi
 
 
 
@@ -255,7 +255,7 @@ summary(tree_pred)
 #Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 #-0.4852 -0.1180 -0.1180  0.0000 -0.1180  0.8820 
 
-# Agacin görsellestirilmesi
+# Agacin gÃ¶rsellestirilmesi
 
 plot(tree_pred)
 text(tree_pred, pretty = 0)
@@ -268,7 +268,7 @@ tree_pred_rpart <- rpart(Y~., data=train, method="class")
 
 summary(tree_pred_rpart)
 
-# Karmasiklik parametresine karsilik olusan degerlerin gösterimi
+# Karmasiklik parametresine karsilik olusan degerlerin gÃ¶sterimi
 plotcp(tree_pred_rpart)
 
 
@@ -280,7 +280,7 @@ prp(tree_pred_rpart, type=1)
 rpart.plot(tree_pred_rpart)
 
 
-#*** train veri seti için Accuracy hesaplama
+#*** train veri seti iÃ§in Accuracy hesaplama
 predict(tree_pred_rpart, train_x, type = "class")
 
 tb <- table(predict(tree_pred_rpart, train_x, type = "class"), train_y)
@@ -293,7 +293,7 @@ confusionMatrix(tb, positive = "0")
 #No Information Rate : 0.7775          
 #P-Value [Acc > NIR] : 0.05714  
 
-#***Test veri seti için Accuracy hesaplama
+#***Test veri seti iÃ§in Accuracy hesaplama
 tb_test <- table(predict(tree_pred_rpart, test_x, type = "class"), test_y)
 confusionMatrix(tb_test, positive = "0")
 
